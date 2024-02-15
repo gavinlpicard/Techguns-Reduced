@@ -76,28 +76,28 @@ public class TGNpcFactions {
 	
 	public static boolean isEnemy(UUID owner, UUID target) {
 		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
-			return techguns.plugins.ftbl.TeamSystemIntegration.isEnemy(owner, target);
+			return false;
 		}
 		return false;
 	}
 	
 	public static boolean isAlliedOrTeamMember(UUID owner, UUID target) {
 		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
-			return techguns.plugins.ftbl.TeamSystemIntegration.isAllied(owner, target);
+			return false;
 		}
 		return true;
 	}
 	
 	public static boolean isAlliedNoTeamMember(UUID owner, UUID target) {
 		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
-			return techguns.plugins.ftbl.TeamSystemIntegration.isAlliedNoMember(owner, target);
+			return false;
 		}
 		return true;
 	}
 	
 	public static boolean isTeamMember(UUID owner, UUID target) {
 		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
-			return techguns.plugins.ftbl.TeamSystemIntegration.isTeamMember(owner, target);
+			return false;
 		}
 		return true;		
 	}
@@ -109,7 +109,7 @@ public class TGNpcFactions {
 	public static boolean isHostile(UUID ply1, UUID ply2){
 		//return !friendsAPI.areFriends(ply1, ply2);
 		if(Techguns.instance.FTBLIB_ENABLED) {
-			return !techguns.plugins.ftbl.TeamSystemIntegration.isAllied(ply1, ply2);
+			return false;
 		}
 		
 		return !ply1.equals(ply2);

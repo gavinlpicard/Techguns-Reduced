@@ -62,17 +62,19 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 
 	protected void explodeRocket(){
 		if (!this.world.isRemote){
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("RocketExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
-			//TGPackets.network.sendToAllAround(new PacketSpawnParticle("TestFX", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+			if(posX > 1500 && posZ > 1500 || posX < -1500 && posZ < -1500 || posX > 1500 && posZ < -1500 || posX < -1500 && posZ > 1500) {
+				TGPackets.network.sendToAllAround(new PacketSpawnParticle("RocketExplosion", this.posX, this.posY, this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+				//TGPackets.network.sendToAllAround(new PacketSpawnParticle("TestFX", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
 
-    		//ProjectileExplosion explosion = new ProjectileExplosion(worldObj, this.posX, this.posY, this.posZ, this.shooter, radius, (int)damage, radius*0.5f, radius*1.5f);
-			//Explosion explosion = new Explosion(world, this,this.posX,this.posY, this.posZ, 5, blockdamage, blockdamage);
-			//explosion.doExplosionA();
-			//explosion.doExplosionB(true);
-			
-			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart,this.damageDropEnd, this.blockdamage?0.5:0.0);
-			
-			explosion.doExplosion(true);
+				//ProjectileExplosion explosion = new ProjectileExplosion(worldObj, this.posX, this.posY, this.posZ, this.shooter, radius, (int)damage, radius*0.5f, radius*1.5f);
+				//Explosion explosion = new Explosion(world, this,this.posX,this.posY, this.posZ, 5, blockdamage, blockdamage);
+				//explosion.doExplosionA();
+				//explosion.doExplosionB(true);
+
+				TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, this.blockdamage ? 0.5 : 0.0);
+
+				explosion.doExplosion(true);
+			}
 		}else {
 			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 15, 10.0f, 1.0f, 1f, 0.9f, 0.5f);
 		}

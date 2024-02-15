@@ -58,16 +58,17 @@ public class GenericProjectileExplosive extends GenericProjectile {
 	
 	protected void explode(double x, double y, double z) {
 		if (!this.world.isRemote){
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("MiningChargeBlockExplosion", x,y,z), TGPackets.targetPointAroundEnt(this, 100.0f));
+			if(x > 1500 && z > 1500 || x < -1500 && z < -1500 || x > 1500 && z < -1500 || x < -1500 && z > 1500) {
+				TGPackets.network.sendToAllAround(new PacketSpawnParticle("MiningChargeBlockExplosion", x, y, z), TGPackets.targetPointAroundEnt(this, 100.0f));
 
-			//TGExplosion explosion = new TGExplosion(world, this.shooter, this, x, y, z, this.damage, this.damageMin, 0.25f, 2.5f,/*this.damageDropStart,this.damageDropEnd,*/ this.blockdamage?0.05f:0.0);
+				//TGExplosion explosion = new TGExplosion(world, this.shooter, this, x, y, z, this.damage, this.damageMin, 0.25f, 2.5f,/*this.damageDropStart,this.damageDropEnd,*/ this.blockdamage?0.05f:0.0);
 
-			//explosion.doExplosion(true);
-			
-			Explosion exp = new Explosion(world, this, x, y, z, 1.5f, false, this.blockdamage);
-			exp.doExplosionA();
-			exp.doExplosionB(false);
-			
+				//explosion.doExplosion(true);
+
+				Explosion exp = new Explosion(world, this, x, y, z, 1.5f, false, this.blockdamage);
+				exp.doExplosionA();
+				exp.doExplosionB(false);
+			}
 		}else {
 			Techguns.proxy.createLightPulse(x, y, z, 5, 15, 3.0f, 0.5f, 1f, 0.9f, 0.5f);
 		}

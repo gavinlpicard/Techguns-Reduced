@@ -98,9 +98,6 @@ public class Techguns
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	if(Loader.isModLoaded("ftblib")) {
-    		FTBLIB_ENABLED=true;
-    	}
     	if(Loader.isModLoaded("chisel")) {
     		CHISEL_ENABLED=true;
     	}

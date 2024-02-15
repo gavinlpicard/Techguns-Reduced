@@ -19,7 +19,7 @@ import techguns.util.MathUtil;
 
 public class GuidedMissileProjectile extends RocketProjectile{
 
-	public static final double MAX_TURN_ANGLE = 9.0 *MathUtil.D2R; //= 180° per second
+	public static final double MAX_TURN_ANGLE = 9.0 *MathUtil.D2R; //= 180ï¿½ per second
 	
 	public Entity target;
 	
@@ -55,10 +55,12 @@ public class GuidedMissileProjectile extends RocketProjectile{
 	@Override
 	protected void explodeRocket() {
 		if (!this.world.isRemote){
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GuidedMissileExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
-			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, this.blockdamage?0.25:0.0);
-			
-			explosion.doExplosion(true);
+			if(posX > 1500 && posZ > 1500 || posX < -1500 && posZ < -1500 || posX > 1500 && posZ < -1500 || posX < -1500 && posZ > 1500) {
+				TGPackets.network.sendToAllAround(new PacketSpawnParticle("GuidedMissileExplosion", this.posX, this.posY, this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+				TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, this.blockdamage ? 0.25 : 0.0);
+
+				explosion.doExplosion(true);
+			}
 		}else {
 			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 15, 10.0f, 1.0f, 1f, 0.9f, 0.5f);
 		}

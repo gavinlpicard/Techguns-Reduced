@@ -51,11 +51,6 @@ repositories {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
-	//ivy { name "com.latmod.mods"; artifactPattern "http://mods.latmod.com/[module]/[revision]/[module]-[revision](-[classifier]).[ext]" }
-	maven { 
-		name="Latmods"
-		url "https://maven.latmod.com/"
-	}
 	maven {
 		name = "OpenComputers"
 		url = "http://maven.cil.li/"
@@ -89,13 +84,9 @@ dependencies {
 	
 	compile 'crafttweaker:CraftTweaker2:1.12:4.1.13'
 	
-	//provided 'chisel:Chisel-MC1.12:0.0.14.18:api'
-	//provided 'chisel:Chisel:MC1.12:0.0.14.18'
-	
 	compile 'the-lost-cities:lostcities:1.12:2.0.12'
 	
-	//compile 'com.latmod.mods:FTBLib:4.2.5:api'
-	deobfCompile "com.feed_the_beast.mods:FTBLib:5.4.0.64"
+    implementation files('libs/FTBLib-5.4.7.2.jar')
 	
 	 // compile against the JEI API but do not include it at runtime
 	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"

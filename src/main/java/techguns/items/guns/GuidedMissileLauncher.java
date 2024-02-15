@@ -11,6 +11,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import techguns.TGSounds;
 import techguns.Techguns;
@@ -43,13 +45,22 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 			TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)player);
 			traceTarget(player);			
 			//Handle sounds
-			if (player instanceof EntityPlayer) {			
-				if (epc.lockOnTicks >= this.lockOnTicks) {
-					if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKED_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
-				}else if (epc.lockOnTicks > 0) {
-					if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
-				}else {
-					if (count % 12 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 0.5F, false, false, TGSoundCategory.PLAYER_EFFECT);
+			if(player.posX > 1500 && player.posZ > 1500|| player.posX < -1500 && player.posZ < -1500 || player.posX > 1500 && player.posZ < -1500 || player.posX < -1500 && player.posX > 1500) {
+				if (player instanceof EntityPlayer) {
+					if (epc.lockOnTicks >= this.lockOnTicks) {
+						if (count % 4 == 0)
+							SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKED_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
+					} else if (epc.lockOnTicks > 0) {
+						if (count % 4 == 0)
+							SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
+					} else {
+						if (count % 12 == 0)
+							SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 0.5F, false, false, TGSoundCategory.PLAYER_EFFECT);
+					}
+				}
+			} else {
+				if(player.world.isRemote) {
+					player.sendMessage(new TextComponentString(TextFormatting.RED + "You must be at least 1500 blocks from the spawn to use this item"));
 				}
 			}
 		}
