@@ -32,7 +32,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGArmors;
 import techguns.TGItems;
-import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.api.radiation.TGRadiation;
@@ -42,7 +41,6 @@ import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
-import techguns.gui.player.TGPlayerInventory;
 import techguns.util.TextUtil;
 
 public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRenderer{
@@ -325,12 +323,12 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 			}
 		}
 		
-		if(props!=null){
-			
-			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), type, consumePower, ply);
-			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), type, consumePower, ply);
-			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), type, consumePower, ply);
-		}
+//		if(props!=null){
+//
+//			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), type, consumePower, ply);
+//			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), type, consumePower, ply);
+//			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), type, consumePower, ply);
+//		}
 		
 		return bonus;
 	}

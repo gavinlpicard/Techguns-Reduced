@@ -7,8 +7,6 @@ import net.minecraft.util.IStringSerializable;
 import techguns.api.machines.IMachineType;
 import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
-import techguns.tileentities.DungeonGeneratorTileEnt;
-import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.TurretTileEnt;
 
@@ -16,9 +14,7 @@ public enum EnumMachineType implements IStringSerializable, IMachineType<EnumMac
 	AMMO_PRESS(0,AmmoPressTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
 	METAL_PRESS(1,MetalPressTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
 	CHEM_LAB(2,ChemLabTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	TURRET(3,TurretTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	DUNGEON_SCANNER(4,DungeonScannerTileEnt.class,true,true,EnumBlockRenderType.MODEL),
-	DUNGEON_GENERATOR(5,DungeonGeneratorTileEnt.class,true,true,EnumBlockRenderType.MODEL);
+	TURRET(3,TurretTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED);
 
 	/*
 	EXPLOSIVE_CHARGE(6,"explosivecharge"),

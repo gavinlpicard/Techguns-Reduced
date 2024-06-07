@@ -19,7 +19,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import techguns.api.tginventory.TGSlotType;
 import techguns.blocks.EnumDoorType;
 import techguns.init.ITGInitializer;
-import techguns.items.BuildingScanTool;
 import techguns.items.GenericItem;
 import techguns.items.GenericItemShared;
 import techguns.items.GenericItemShared.SharedItemEntry;
@@ -27,16 +26,6 @@ import techguns.items.ItemRadAway;
 import techguns.items.ItemRadpills;
 import techguns.items.ItemTGDoor2x1;
 import techguns.items.ItemTGDoor3x3;
-import techguns.items.WorldGenTestTool;
-import techguns.items.additionalslots.ItemAntiGravPack;
-import techguns.items.additionalslots.ItemGasMask;
-import techguns.items.additionalslots.ItemGlider;
-import techguns.items.additionalslots.ItemJetpack;
-import techguns.items.additionalslots.ItemJumpPack;
-import techguns.items.additionalslots.ItemNightVisionGoggles;
-import techguns.items.additionalslots.ItemScubaTanks;
-import techguns.items.additionalslots.ItemTacticalMask;
-import techguns.items.armors.GenericShield;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.items.tools.TGCrowbar;
@@ -230,19 +219,6 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack AS50_MAGAZINE_EXPLOSIVE;
 	
 	public static ItemStack ROCKET_HIGH_VELOCITY;
-	
-	/**
-	 * ADDITONAL SLOT ITEMS
-	 */
-	public static ItemGasMask GAS_MASK;
-	public static ItemGlider GLIDER;
-	
-	public static ItemNightVisionGoggles NIGHTVISION_GOGGLES;
-	public static ItemJumpPack JUMPPACK;
-	public static ItemJetpack JETPACK;
-	public static ItemScubaTanks SCUBA_TANKS;
-	public static ItemTacticalMask TACTICAL_MASK;
-	public static ItemAntiGravPack ANTI_GRAV_PACK;
 	
 	public static ItemStack WORKING_GLOVES;
 	
@@ -528,27 +504,12 @@ public class TGItems implements ITGInitializer{
 		RAD_AWAY = new ItemRadAway("radaway");
 		RAD_PILLS = new ItemRadpills("radpills");
 		
-		/**
-		 * Additional Slot items
-		 */
-		GAS_MASK=new ItemGasMask("gasmask",1, 300).setRadresist(1f);
-		GLIDER = new ItemGlider("glider",1,-1);
-		JUMPPACK = new ItemJumpPack("jumppack",4, 1000);
-		SCUBA_TANKS = new ItemScubaTanks("scubatanks", 1, 600);
-		NIGHTVISION_GOGGLES = new ItemNightVisionGoggles("nightvisiongoggles", 1, 24000);
-		JETPACK = new ItemJetpack("jetpack", 4, 5000);
-		TACTICAL_MASK = new ItemTacticalMask("tacticalmask", 4, 24000);	
-		ANTI_GRAV_PACK = new ItemAntiGravPack("antigravpack", 5, 12000);
-		
 		DOOR3x3 = new ItemTGDoor3x3<EnumDoorType>("item_door3x3",EnumDoorType.class);
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");
 		
-		if(TGConfig.debug) {
-			WORLDGEN_TEST_TOOL = new WorldGenTestTool("worldgentesttool");
-			BUIDLING_SCAN_TOOL = new BuildingScanTool("buildingscantool");
-		}
+
 		
 		BUNKER_DOOR = new ItemTGDoor2x1("item_bunkerdoor");
 		

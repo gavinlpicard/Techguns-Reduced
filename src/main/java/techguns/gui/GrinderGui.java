@@ -5,9 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
-import techguns.gui.containers.BlastFurnaceContainer;
 import techguns.gui.containers.GrinderContainer;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.GrinderTileEnt;
 
 public class GrinderGui extends PoweredTileEntGui {

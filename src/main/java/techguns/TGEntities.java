@@ -14,28 +14,8 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.entities.npcs.AlienBug;
-import techguns.entities.npcs.ArmySoldier;
-import techguns.entities.npcs.AttackHelicopter;
-import techguns.entities.npcs.Bandit;
-import techguns.entities.npcs.Commando;
-import techguns.entities.npcs.CyberDemon;
-import techguns.entities.npcs.DictatorDave;
-import techguns.entities.npcs.Ghastling;
 import techguns.entities.npcs.NPCTurret;
-import techguns.entities.npcs.Outcast;
-import techguns.entities.npcs.PsychoSteve;
-import techguns.entities.npcs.SkeletonSoldier;
-import techguns.entities.npcs.StormTrooper;
-import techguns.entities.npcs.SuperMutantBasic;
-import techguns.entities.npcs.SuperMutantElite;
-import techguns.entities.npcs.SuperMutantHeavy;
 import techguns.entities.npcs.TGDummySpawn;
-import techguns.entities.npcs.ZombieFarmer;
-import techguns.entities.npcs.ZombieMiner;
-import techguns.entities.npcs.ZombiePigmanSoldier;
-import techguns.entities.npcs.ZombiePoliceman;
-import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
 import techguns.entities.projectiles.AlienBlasterProjectile;
 import techguns.entities.projectiles.BioGunProjectile;
@@ -115,27 +95,6 @@ public class TGEntities implements ITGInitializer {
 		 */
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"turret"),NPCTurret.class,  Techguns.MODID+".Turret", ++Techguns.modEntityID, Techguns.MODID, 80, 3, false);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"TGDummySpawn"),TGDummySpawn.class,  Techguns.MODID+".DummySpawn", ++Techguns.modEntityID, Techguns.MODID, 80, 3, false);
-		registerModEntityWithEgg(ZombieSoldier.class, "ZombieSoldier",0x757468, 0x38B038);
-		registerModEntityWithEgg(ZombieFarmer.class, "ZombieFarmer",0x757468, 0x38B038);
-		registerModEntityWithEgg(ZombieMiner.class, "ZombieMiner",0x757468, 0x38B038);
-		registerModEntityWithEgg(ArmySoldier.class, "ArmySoldier",0x74806e, 0x191512);
-		registerModEntityWithEgg(Bandit.class, "Bandit",0x8f9d59, 0x2c3117);
-		registerModEntityWithEgg(Commando.class, "Commando",0x191512, 0x74806e);
-		registerModEntityWithEgg(DictatorDave.class, "DictatorDave",0x8f9d59, 0xA0A000);
-		registerModEntityWithEgg(CyberDemon.class, "CyberDemon",0xFF1111, 0x777777);
-		registerModEntityWithEgg(SkeletonSoldier.class, "SkeletonSoldier",0x404040,0xF0F0F0);
-		registerModEntityWithEgg(PsychoSteve.class, "PsychoSteve", 0x757468,0xF0F0F0);
-		registerModEntityWithEgg(StormTrooper.class, "StormTrooper", 0xF0F0F0, 0x404040);
-		registerModEntityWithEgg(Outcast.class, "Outcast", 0x101010,0xFF0000);
-		registerModEntityWithEgg(ZombiePigmanSoldier.class, "ZombiePigmanSoldier", 0xFF1111, 0x770000);
-		registerModEntityWithEgg(SuperMutantBasic.class, "SuperMutantBasic", 0xc6a96b, 0x71552e);
-		registerModEntityWithEgg(SuperMutantElite.class, "SuperMutantElite", 0xc6a96b, 0x61451e);
-		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0xc6a96b, 0x51350e);
-		registerModEntityWithEgg(AttackHelicopter.class, "AttackHelicopter", 0x373d23, 0x8ec0d7,200);
-		registerModEntityWithEgg(AlienBug.class, "AlienBug", 0xc6a96b, 0x71552e);
-		registerModEntityWithEgg(Ghastling.class, "Ghastling", 0xaeaeae, 0xce81ff);
-		registerModEntityWithEgg(ZombiePoliceman.class, "ZombiePoliceman", 0x303030, 0x0000FF);
-		
 	}
 
 
@@ -155,19 +114,6 @@ public class TGEntities implements ITGInitializer {
 	public void init(FMLInitializationEvent event) {
 
 		//registerSpawn does not add the spawn if the spawnweight is <=0
-		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieSoldier.class, TGConfig.spawnWeightZombieSoldier), 1);
-		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieFarmer.class, TGConfig.spawnWeightZombieFarmer), 0);
-		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieMiner.class, TGConfig.spawnWeightZombieMiner), 0);
-		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(SkeletonSoldier.class, TGConfig.spawnWeightSkeletonSoldier), 1);
-		
-		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(PsychoSteve.class, TGConfig.spawnWeightPsychoSteve), 1);
-		
-		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(Bandit.class, TGConfig.spawnWeightBandit), 2);
-		
-		
-		TGSpawnManager.spawnTableNether.registerSpawn(new TGNpcSpawn(ZombiePigmanSoldier.class, TGConfig.spawnWeightZombiePigmanSoldier), 0);
-		TGSpawnManager.spawnTableNether.registerSpawn(new TGNpcSpawn(CyberDemon.class, TGConfig.spawnWeightCyberDemon), 0);
-		
 	}
 
 	@Override

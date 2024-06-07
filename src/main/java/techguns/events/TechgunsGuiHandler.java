@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import techguns.Techguns;
-import techguns.gui.player.TGPlayerInventoryContainer;
-import techguns.gui.player.TGPlayerInventoryGui;
 
 public class TechgunsGuiHandler implements IGuiHandler {
 	
@@ -30,9 +28,7 @@ public class TechgunsGuiHandler implements IGuiHandler {
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID ==0) {
-			return new TGPlayerInventoryContainer(player);
-		} else {
+		if (ID != 0) {
 			TileEntity tileEntity = world.getTileEntity(new BlockPos(x,y,z));
 			if (tileEntity!=null) {
 				GuiHandlerEntry entry = Techguns.proxy.getGuihandlers().getByID.get(ID);
@@ -47,10 +43,7 @@ public class TechgunsGuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID==0) {
-			return new TGPlayerInventoryGui(player.inventoryContainer, player);
-		}
-		else {
+		if (ID != 0) {
 			TileEntity tileEntity = world.getTileEntity(new BlockPos(x,y,z));
 			if (tileEntity!=null) {
 				GuiHandlerEntry entry = Techguns.proxy.getGuihandlers().getByID.get(ID);

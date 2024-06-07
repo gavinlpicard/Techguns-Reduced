@@ -15,12 +15,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import techguns.TGPackets;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.gui.player.TGPlayerInventory;
 import techguns.util.DataUtil;
 
 public class PacketTGExtendedPlayerSync implements IMessage {
 	public int entityId;
-	public NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(TGPlayerInventory.NUMSLOTS, ItemStack.EMPTY);
+//	public NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(ItemStack.EMPTY);
 	public int radlevel;
 	public short foodLeft=0;
 	public boolean nightVisionEnabled=false;
@@ -42,7 +41,7 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 		this.nightVisionEnabled=props.enableNightVision;
 		this.safemodeEnabled=props.enableSafemode;
 		this.hovermodeEnabled=props.enableHovermode;
-		this.inv = props.tg_inventory.inventory;
+//		this.inv = props.tg_inventory.inventory;
 	//	this.size=allSlots?(byte)inv.length:(byte)2;
 		if (allSlots){
 			this.radlevel=props.radlevel;
@@ -69,20 +68,20 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 		this.hovermodeEnabled=states.get(5);
 		
 		this.allSlots=buf.readBoolean();
-		if (allSlots) {
-			this.radlevel=buf.readInt();
-			this.foodLeft=buf.readShort();
-			this.lastSaturation=buf.readFloat();
-			NBTTagCompound tags = DataUtil.readCompoundTag(buf);
-			if(tags!=null) {
-				inv.clear();
-				ItemStackHelper.loadAllItems(tags, inv);
-			}
-		} else {
-			inv.set(TGPlayerInventory.SLOT_FACE, DataUtil.readItemStack(buf));
-			inv.set(TGPlayerInventory.SLOT_BACK, DataUtil.readItemStack(buf));
-			inv.set(TGPlayerInventory.SLOT_HAND, DataUtil.readItemStack(buf));
-		}
+//		if (allSlots) {
+//			this.radlevel=buf.readInt();
+//			this.foodLeft=buf.readShort();
+//			this.lastSaturation=buf.readFloat();
+//			NBTTagCompound tags = DataUtil.readCompoundTag(buf);
+//			if(tags!=null) {
+//				inv.clear();
+//				ItemStackHelper.loadAllItems(tags, inv);
+//			}
+//		} else {
+//			inv.set(TGPlayerInventory.SLOT_FACE, DataUtil.readItemStack(buf));
+//			inv.set(TGPlayerInventory.SLOT_BACK, DataUtil.readItemStack(buf));
+//			inv.set(TGPlayerInventory.SLOT_HAND, DataUtil.readItemStack(buf));
+//		}
 	}
 
 	@Override
@@ -91,18 +90,18 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 		byte states = DataUtil.compress(this.enableJetpack,this.nightVisionEnabled,this.safemodeEnabled,this.stepAssist,this.showHUD,this.hovermodeEnabled);
 		buf.writeByte(states);
 		buf.writeBoolean(this.allSlots);
-		if(allSlots) {
-			buf.writeInt(radlevel);
-			buf.writeShort(foodLeft);
-			buf.writeFloat(lastSaturation);
-			NBTTagCompound tags = new NBTTagCompound();
-			ItemStackHelper.saveAllItems(tags, inv, false);
-			DataUtil.writeCompoundTag(buf, tags);
-		} else {
-			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_FACE));
-			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_BACK));
-			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_HAND));
-		}
+//		if(allSlots) {
+//			buf.writeInt(radlevel);
+//			buf.writeShort(foodLeft);
+//			buf.writeFloat(lastSaturation);
+//			NBTTagCompound tags = new NBTTagCompound();
+//			ItemStackHelper.saveAllItems(tags, inv, false);
+//			DataUtil.writeCompoundTag(buf, tags);
+//		} else {
+//			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_FACE));
+//			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_BACK));
+//			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_HAND));
+//		}
 	}
 	
 	public static class Handler implements IMessageHandler<PacketTGExtendedPlayerSync, IMessage> {
@@ -132,10 +131,10 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 				props.showTGHudElements = message.showHUD;
 				props.enableJetpack = message.enableJetpack;
 				
-				int max = message.allSlots ? message.inv.size() : 3;
-				for (int i=0;i<max;i++) {
-					props.tg_inventory.inventory.set(i, message.inv.get(i));
-				}
+//				int max = message.allSlots ? message.inv.size() : 3;
+//				for (int i=0;i<max;i++) {
+//					props.tg_inventory.inventory.set(i, message.inv.get(i));
+//				}
 			}
 		}
 	}

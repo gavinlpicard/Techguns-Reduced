@@ -1,9 +1,7 @@
 package techguns.events;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 
 import com.google.common.base.Predicate;
@@ -35,7 +33,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.TGConfig;
 import techguns.TGPackets;
 import techguns.TGRadiationSystem;
 import techguns.TGSounds;
@@ -52,9 +49,6 @@ import techguns.client.audio.TGSoundCategory;
 import techguns.client.particle.LightPulse;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
-import techguns.entities.npcs.GenericNPC;
-import techguns.gui.player.TGPlayerInventory;
-import techguns.items.additionalslots.ItemGasMask;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.PoweredArmor;
 import techguns.items.armors.TGArmorBonus;
@@ -64,10 +58,8 @@ import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketShootGun;
 import techguns.packets.PacketShootGunTarget;
 import techguns.packets.PacketSwapWeapon;
-import techguns.packets.PacketTGExtendedPlayerSync;
 import techguns.radiation.ItemRadiationData;
 import techguns.radiation.ItemRadiationRegistry;
-import techguns.util.InventoryUtil;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class TGTickHandler {
@@ -196,15 +188,15 @@ public class TGTickHandler {
 			 
 		 } else if (event.phase == Phase.END){
 		 
-		 	 if(!event.player.world.isRemote) {	 
-				 event.player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
-				 event.player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
-				 event.player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
-			 } else {
-				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_FACE, event.player.getDataManager().get(TGExtendedPlayer.DATA_FACE_SLOT));
-				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_BACK, event.player.getDataManager().get(TGExtendedPlayer.DATA_BACK_SLOT));
-				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_HAND, event.player.getDataManager().get(TGExtendedPlayer.DATA_HAND_SLOT));
-			 }
+//		 	 if(!event.player.world.isRemote) {
+//				 event.player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
+//				 event.player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
+//				 event.player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
+//			 } else {
+//				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_FACE, event.player.getDataManager().get(TGExtendedPlayer.DATA_FACE_SLOT));
+//				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_BACK, event.player.getDataManager().get(TGExtendedPlayer.DATA_BACK_SLOT));
+//				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_HAND, event.player.getDataManager().get(TGExtendedPlayer.DATA_HAND_SLOT));
+//			 }
 			 
 			 boolean wearingTechgunsArmor = false;
 			 for (int i =0;i<4;i++){
@@ -385,81 +377,74 @@ public class TGTickHandler {
 			 /** 
 			  * Auto feeder
 			  */
-			 if (!TGConfig.disableAutofeeder && event.player.getFoodStats().getFoodLevel()<=19){
-				 
-				 if (props!=null){
-					 int needed = 20-event.player.getFoodStats().getFoodLevel();
-					 if (props.foodleft>0){
-						 if (props.foodleft<=needed){
-							 event.player.getFoodStats().addStats(props.foodleft,props.lastSaturation);
-							 props.foodleft=0;
-							 props.lastSaturation=0.0f;
-						 } else {
-							 event.player.getFoodStats().addStats(needed,props.lastSaturation);
-							 props.foodleft-=needed;
-						 }
-						 if (!event.player.world.isRemote){
-							 TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(event.player,props,true), (EntityPlayerMP) event.player);
-						 }
-					 } else {
-						 ItemStack stack = InventoryUtil.consumeFood(props.tg_inventory.inventory, props.tg_inventory.SLOTS_AUTOFOOD_START, props.tg_inventory.SLOTS_AUTOFOOD_END+1);
-						 if (!stack.isEmpty()){
-							 ItemFood food = (ItemFood) stack.getItem();
-							 
-							 //check potion effect.
-							 try {
-								ITEMFOOD_onFoodEaten.invoke(food, stack, event.player.world,event.player);
-							} catch (IllegalAccessException e) {
-								e.printStackTrace();
-							} catch (IllegalArgumentException e) {
-								e.printStackTrace();
-							} catch (InvocationTargetException e) {
-								e.printStackTrace();
-							}
-							 
-							 if (!event.player.world.isRemote){
-								 //event.player.world.playSoundAtEntity(event.player, SoundEvents.ENTITY_PLAYER_BURP, 1.0f, 1.0f);
-								 event.player.world.playSound(null, event.player.posX, event.player.posY, event.player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1f, 1f);
-							 }
-							 
-							 short left = (short) (food.getHealAmount(stack)-needed);
-							 if (left >0){
-								 event.player.getFoodStats().addStats(needed, food.getSaturationModifier(stack));
-								 props.foodleft=left;
-								 props.lastSaturation=food.getSaturationModifier(stack);
-							 } else {
-								 event.player.getFoodStats().addStats(food.getHealAmount(stack), food.getSaturationModifier(stack));
-								 props.foodleft=0;
-								 props.lastSaturation=0.0f;
-							 }
-							 if (!event.player.world.isRemote){
-								 TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(event.player,props,true), (EntityPlayerMP) event.player);
-							 }
-						 }
-					 }
-				 }
-			 }
+//			 if (!TGConfig.disableAutofeeder && event.player.getFoodStats().getFoodLevel()<=19){
+//
+//				 if (props!=null){
+//					 int needed = 20-event.player.getFoodStats().getFoodLevel();
+//					 if (props.foodleft>0){
+//						 if (props.foodleft<=needed){
+//							 event.player.getFoodStats().addStats(props.foodleft,props.lastSaturation);
+//							 props.foodleft=0;
+//							 props.lastSaturation=0.0f;
+//						 } else {
+//							 event.player.getFoodStats().addStats(needed,props.lastSaturation);
+//							 props.foodleft-=needed;
+//						 }
+//						 if (!event.player.world.isRemote){
+//							 TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(event.player,props,true), (EntityPlayerMP) event.player);
+//						 }
+//					 } else {
+//						 ItemStack stack = InventoryUtil.consumeFood(props.tg_inventory.inventory, props.tg_inventory.SLOTS_AUTOFOOD_START, props.tg_inventory.SLOTS_AUTOFOOD_END+1);
+//						 if (!stack.isEmpty()){
+//							 ItemFood food = (ItemFood) stack.getItem();
+//
+//							 //check potion effect.
+//							 try {
+//								ITEMFOOD_onFoodEaten.invoke(food, stack, event.player.world,event.player);
+//							} catch (IllegalAccessException e) {
+//								e.printStackTrace();
+//							} catch (IllegalArgumentException e) {
+//								e.printStackTrace();
+//							} catch (InvocationTargetException e) {
+//								e.printStackTrace();
+//							}
+//
+//							 if (!event.player.world.isRemote){
+//								 //event.player.world.playSoundAtEntity(event.player, SoundEvents.ENTITY_PLAYER_BURP, 1.0f, 1.0f);
+//								 event.player.world.playSound(null, event.player.posX, event.player.posY, event.player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1f, 1f);
+//							 }
+//
+//							 short left = (short) (food.getHealAmount(stack)-needed);
+//							 if (left >0){
+//								 event.player.getFoodStats().addStats(needed, food.getSaturationModifier(stack));
+//								 props.foodleft=left;
+//								 props.lastSaturation=food.getSaturationModifier(stack);
+//							 } else {
+//								 event.player.getFoodStats().addStats(food.getHealAmount(stack), food.getSaturationModifier(stack));
+//								 props.foodleft=0;
+//								 props.lastSaturation=0.0f;
+//							 }
+//							 if (!event.player.world.isRemote){
+//								 TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(event.player,props,true), (EntityPlayerMP) event.player);
+//							 }
+//						 }
+//					 }
+//				 }
+//			 }
 			 
 			 /**
 			  * Remove Additional Slot Attribute Modifiers
 			  */
 		      IAttributeInstance attributeRadresistance = event.player.getAttributeMap().getAttributeInstance(TGRadiation.RADIATION_RESISTANCE);
-	         if (attributeRadresistance!=null){
-	        	 AttributeModifier rad_resist_faceslot = attributeRadresistance.getModifier(ItemGasMask.UUID_RAD_RESIST_FACE);
-	        	 if (rad_resist_faceslot!=null){
-	        		 attributeRadresistance.removeModifier(rad_resist_faceslot);
-	        	 }
-	         }
-			 
-			 
+
 			 /**
 			  * Tick addition slots
 			  */
 			 props.isGliding=false;
 			 
-			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), event);
-			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), event);
-			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), event);
+//			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), event);
+//			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), event);
+//			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), event);
 			 
 			 Techguns.proxy.handlePlayerGliding(event.player);
 			 			 

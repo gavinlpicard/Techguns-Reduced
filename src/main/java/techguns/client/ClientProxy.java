@@ -1,6 +1,5 @@
 package techguns.client;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,34 +68,23 @@ import techguns.TGSounds;
 import techguns.TGuns;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
-import techguns.api.render.IItemRenderer;
-import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGDeathTypeCap;
 import techguns.capabilities.TGDeathTypeCapStorage;
-import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.audio.TGSound;
 import techguns.client.audio.TGSoundCategory;
 import techguns.client.models.armor.ModelAdvancedShield;
-import techguns.client.models.armor.ModelAntiGravPack;
 import techguns.client.models.armor.ModelArmorCoat;
 import techguns.client.models.armor.ModelBallisticShield;
 import techguns.client.models.armor.ModelBeret;
 import techguns.client.models.armor.ModelExoSuit;
 import techguns.client.models.armor.ModelFaceMask;
-import techguns.client.models.armor.ModelGasMask;
-import techguns.client.models.armor.ModelGlider;
 import techguns.client.models.armor.ModelGloves;
-import techguns.client.models.armor.ModelHeavyShield;
-import techguns.client.models.armor.ModelJetPack;
-import techguns.client.models.armor.ModelNightVisionGoggles;
-import techguns.client.models.armor.ModelOxygenTanks;
 import techguns.client.models.armor.ModelRiotShield;
 import techguns.client.models.armor.ModelSteamArmor;
 import techguns.client.models.armor.ModelT3PowerArmor;
 import techguns.client.models.armor.ModelT4PowerArmorMk2;
-import techguns.client.models.gibs.ModelGibsQuadruped;
 import techguns.client.models.guns.ModelAK;
 import techguns.client.models.guns.ModelAS50;
 import techguns.client.models.guns.ModelAUG;
@@ -154,31 +142,12 @@ import techguns.client.particle.LightPulse;
 import techguns.client.particle.TGFX;
 import techguns.client.particle.TGParticleManager;
 import techguns.client.particle.TGParticleSystem;
-import techguns.client.particle.DeathEffect.GoreData;
 import techguns.client.render.AdditionalSlotRenderRegistry;
 import techguns.client.render.ItemRenderHack;
 import techguns.client.render.RenderAdditionalSlotItem;
 import techguns.client.render.RenderAdditionalSlotSharedItem;
 import techguns.client.render.entities.TGLayerRendererer;
-import techguns.client.render.entities.npcs.RenderAlienBug;
-import techguns.client.render.entities.npcs.RenderArmySoldier;
-import techguns.client.render.entities.npcs.RenderAttackHelicopter;
-import techguns.client.render.entities.npcs.RenderBandit;
-import techguns.client.render.entities.npcs.RenderCommando;
-import techguns.client.render.entities.npcs.RenderCyberDemon;
-import techguns.client.render.entities.npcs.RenderDictatorDave;
-import techguns.client.render.entities.npcs.RenderGhastling;
 import techguns.client.render.entities.npcs.RenderNPCTurret;
-import techguns.client.render.entities.npcs.RenderOutcast;
-import techguns.client.render.entities.npcs.RenderPsychoSteve;
-import techguns.client.render.entities.npcs.RenderSkeletonSoldier;
-import techguns.client.render.entities.npcs.RenderStormTrooper;
-import techguns.client.render.entities.npcs.RenderSuperMutant;
-import techguns.client.render.entities.npcs.RenderZombieFarmer;
-import techguns.client.render.entities.npcs.RenderZombieMiner;
-import techguns.client.render.entities.npcs.RenderZombiePigmanSoldier;
-import techguns.client.render.entities.npcs.RenderZombiePoliceman;
-import techguns.client.render.entities.npcs.RenderZombieSoldier;
 import techguns.client.render.entities.projectiles.RenderAdvancedBulletProjectile;
 import techguns.client.render.entities.projectiles.RenderBioGunProjectile;
 import techguns.client.render.entities.projectiles.RenderBlasterProjectile;
@@ -211,11 +180,7 @@ import techguns.client.render.item.RenderItemLMGMag;
 import techguns.client.render.item.RenderMiningToolMultiTexture;
 import techguns.client.render.item.RenderRocketLauncher;
 import techguns.client.render.item.TileEntityItemRendererTGShield;
-import techguns.client.render.tileentities.RenderBlastfurnace;
-import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
-import techguns.client.render.tileentities.RenderDungeonGenerator;
-import techguns.client.render.tileentities.RenderDungeonScanner;
 import techguns.client.render.tileentities.RenderFabricator;
 import techguns.client.render.tileentities.RenderGrinder;
 import techguns.client.render.tileentities.RenderMachine;
@@ -224,27 +189,7 @@ import techguns.client.render.tileentities.RenderReactionChamber;
 import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.debug.Keybinds;
-import techguns.entities.npcs.AlienBug;
-import techguns.entities.npcs.ArmySoldier;
-import techguns.entities.npcs.AttackHelicopter;
-import techguns.entities.npcs.Bandit;
-import techguns.entities.npcs.Commando;
-import techguns.entities.npcs.CyberDemon;
-import techguns.entities.npcs.DictatorDave;
-import techguns.entities.npcs.Ghastling;
 import techguns.entities.npcs.NPCTurret;
-import techguns.entities.npcs.Outcast;
-import techguns.entities.npcs.PsychoSteve;
-import techguns.entities.npcs.SkeletonSoldier;
-import techguns.entities.npcs.StormTrooper;
-import techguns.entities.npcs.SuperMutantBasic;
-import techguns.entities.npcs.SuperMutantElite;
-import techguns.entities.npcs.SuperMutantHeavy;
-import techguns.entities.npcs.ZombieFarmer;
-import techguns.entities.npcs.ZombieMiner;
-import techguns.entities.npcs.ZombiePigmanSoldier;
-import techguns.entities.npcs.ZombiePoliceman;
-import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
 import techguns.entities.projectiles.AlienBlasterProjectile;
 import techguns.entities.projectiles.BioGunProjectile;
@@ -277,50 +222,32 @@ import techguns.events.TGGuiEvents;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
 import techguns.gui.AmmoPressGui;
 import techguns.gui.UpgradeBenchGui;
-import techguns.gui.BlastFurnaceGui;
-import techguns.gui.CamoBenchGui;
-import techguns.gui.ChargingStationGui;
 import techguns.gui.ChemLabGui;
 import techguns.gui.Door3x3Gui;
-import techguns.gui.DungeonGeneratorGui;
-import techguns.gui.DungeonScannerGui;
 import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.FabricatorGui;
 import techguns.gui.GrinderGui;
 import techguns.gui.MetalPressGui;
 import techguns.gui.OreDrillGui;
 import techguns.gui.ReactionChamberGui;
-import techguns.gui.RepairBenchGui;
 import techguns.gui.TurretGui;
 import techguns.gui.containers.AmmoPressContainer;
 import techguns.gui.containers.UpgradeBenchContainer;
-import techguns.gui.containers.BlastFurnaceContainer;
-import techguns.gui.containers.CamoBenchContainer;
-import techguns.gui.containers.ChargingStationContainer;
 import techguns.gui.containers.ChemLabContainer;
 import techguns.gui.containers.Door3x3Container;
-import techguns.gui.containers.DungeonGeneratorContainer;
-import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.GrinderContainer;
 import techguns.gui.containers.MetalPressContainer;
 import techguns.gui.containers.OreDrillContainer;
 import techguns.gui.containers.ReactionChamberContainer;
-import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.containers.TurretContainer;
-import techguns.gui.player.tabs.TGPlayerTab;
 import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.UpgradeBenchTileEnt;
-import techguns.tileentities.BlastFurnaceTileEnt;
-import techguns.tileentities.CamoBenchTileEnt;
-import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.Door3x3TileEntity;
-import techguns.tileentities.DungeonGeneratorTileEnt;
-import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.ExplosiveChargeAdvTileEnt;
 import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
@@ -328,7 +255,6 @@ import techguns.tileentities.GrinderTileEnt;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.OreDrillTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
-import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
 import techguns.util.EntityCondition;
 import techguns.util.MathUtil;
@@ -485,18 +411,14 @@ public class ClientProxy extends CommonProxy {
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(FabricatorTileEntMaster.class, new RenderFabricator());
 		
-		ClientRegistry.bindTileEntitySpecialRenderer(ChargingStationTileEnt.class, new RenderChargingStation());
-		
+
 		ClientRegistry.bindTileEntitySpecialRenderer(ReactionChamberTileEntMaster.class, new RenderReactionChamber());
-		
-		ClientRegistry.bindTileEntitySpecialRenderer(DungeonScannerTileEnt.class, new RenderDungeonScanner());
-		ClientRegistry.bindTileEntitySpecialRenderer(DungeonGeneratorTileEnt.class, new RenderDungeonGenerator());
+
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(Door3x3TileEntity.class, new RenderDoor3x3Fast());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(OreDrillTileEntMaster.class, new RenderOreDrill());
 		
-		ClientRegistry.bindTileEntitySpecialRenderer(BlastFurnaceTileEnt.class, new RenderBlastfurnace());
 		ClientRegistry.bindTileEntitySpecialRenderer(GrinderTileEnt.class, new RenderGrinder());
 		
 		this.initGuiHandler();
@@ -506,26 +428,20 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForge.EVENT_BUS.register(new TabRegistry());
 			TabRegistry.registerTab(new InventoryTabVanilla());
 		}
-		TabRegistry.registerTab(new TGPlayerTab());
+//		TabRegistry.registerTab(new TGPlayerTab());
 	}
 	
 	protected void initGuiHandler() {
-		guihandler.<CamoBenchTileEnt>addEntry(CamoBenchTileEnt.class, CamoBenchGui::new, CamoBenchContainer::new);
-		guihandler.<RepairBenchTileEnt>addEntry(RepairBenchTileEnt.class, RepairBenchGui::new, RepairBenchContainer::new);
 		guihandler.<AmmoPressTileEnt>addEntry(AmmoPressTileEnt.class, AmmoPressGui::new, AmmoPressContainer::new);
 		guihandler.<MetalPressTileEnt>addEntry(MetalPressTileEnt.class, MetalPressGui::new, MetalPressContainer::new);
 		guihandler.<ChemLabTileEnt>addEntry(ChemLabTileEnt.class, ChemLabGui::new, ChemLabContainer::new);
 		guihandler.<TurretTileEnt>addEntry(TurretTileEnt.class, TurretGui::new, TurretContainer::new);
 		guihandler.<FabricatorTileEntMaster>addEntry(FabricatorTileEntMaster.class, FabricatorGui::new, FabricatorContainer::new);
-		guihandler.<ChargingStationTileEnt>addEntry(ChargingStationTileEnt.class, ChargingStationGui::new, ChargingStationContainer::new);
 		guihandler.<ReactionChamberTileEntMaster>addEntry(ReactionChamberTileEntMaster.class, ReactionChamberGui::new, ReactionChamberContainer::new);
-		guihandler.<DungeonScannerTileEnt>addEntry(DungeonScannerTileEnt.class, DungeonScannerGui::new, DungeonScannerContainer::new);
-		guihandler.<DungeonGeneratorTileEnt>addEntry(DungeonGeneratorTileEnt.class, DungeonGeneratorGui::new, DungeonGeneratorContainer::new);
 		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Gui::new, Door3x3Container::new);
 		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillGui::new, OreDrillContainer::new);
-		guihandler.<BlastFurnaceTileEnt>addEntry(BlastFurnaceTileEnt.class, BlastFurnaceGui::new, BlastFurnaceContainer::new);
 		guihandler.<GrinderTileEnt>addEntry(GrinderTileEnt.class, GrinderGui::new, GrinderContainer::new);
 		guihandler.<UpgradeBenchTileEnt>addEntry(UpgradeBenchTileEnt.class, UpgradeBenchGui::new, UpgradeBenchContainer::new);
 	}
@@ -1056,15 +972,6 @@ public class ClientProxy extends CommonProxy {
 			{0f,0f,-0.05f} //frame
 		}));	
 		
-		AdditionalSlotRenderRegistry.register(TGItems.GAS_MASK, new RenderAdditionalSlotItem(new ModelGasMask(), new ResourceLocation(Techguns.MODID, "textures/armors/gasmask.png")));
-		AdditionalSlotRenderRegistry.register(TGItems.GLIDER, new RenderAdditionalSlotItem(new ModelGlider(), new ResourceLocation(Techguns.MODID, "textures/armors/glider.png")));
-		AdditionalSlotRenderRegistry.register(TGItems.JUMPPACK, new RenderAdditionalSlotItem(new ModelJetPack(1), Techguns.MODID, "textures/armors/jetpack",4));
-		AdditionalSlotRenderRegistry.register(TGItems.JETPACK, new RenderAdditionalSlotItem(new ModelJetPack(0), Techguns.MODID, "textures/armors/jetpack",4));
-		AdditionalSlotRenderRegistry.register(TGItems.SCUBA_TANKS, new RenderAdditionalSlotItem(new ModelOxygenTanks(), new ResourceLocation(Techguns.MODID,"textures/armors/oxygentanks.png")));
-		AdditionalSlotRenderRegistry.register(TGItems.NIGHTVISION_GOGGLES, new RenderAdditionalSlotItem(new ModelNightVisionGoggles(), new ResourceLocation(Techguns.MODID,"textures/armors/nightvisiongoggles.png")));
-		AdditionalSlotRenderRegistry.register(TGItems.ANTI_GRAV_PACK, new RenderAdditionalSlotItem(new ModelAntiGravPack(), Techguns.MODID, "textures/armors/antigravpack",5));
-		AdditionalSlotRenderRegistry.register(TGItems.TACTICAL_MASK, new RenderAdditionalSlotItem(new ModelFaceMask(true), Techguns.MODID, "textures/armors/tacticalmask",4));
-		
 		RenderAdditionalSlotSharedItem sharedItemRenderer = new RenderAdditionalSlotSharedItem();
 		sharedItemRenderer.addRenderForSharedItem(TGItems.OXYGEN_MASK.getItemDamage(),new RenderAdditionalSlotItem(new ModelFaceMask(true), new ResourceLocation(Techguns.MODID,"textures/armors/oxygenmask.png")));
 		sharedItemRenderer.addRenderForSharedItem(TGItems.WORKING_GLOVES.getItemDamage(),new RenderAdditionalSlotItem(new ModelGloves(0.45f,false), new ModelGloves(0.45f, true), new ResourceLocation(Techguns.MODID,"textures/models/armor/working_gloves.png"), new ResourceLocation(Techguns.MODID,"textures/models/armor/working_gloves_slim.png")));
@@ -1117,26 +1024,6 @@ public class ClientProxy extends CommonProxy {
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);
 		
-		RenderingRegistry.registerEntityRenderingHandler(ZombieSoldier.class, RenderZombieSoldier::new);
-		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieFarmer::new);
-		RenderingRegistry.registerEntityRenderingHandler(ZombieMiner.class, RenderZombieMiner::new);
-		RenderingRegistry.registerEntityRenderingHandler(ArmySoldier.class, RenderArmySoldier::new);
-		RenderingRegistry.registerEntityRenderingHandler(Bandit.class, RenderBandit::new);
-		RenderingRegistry.registerEntityRenderingHandler(Commando.class, RenderCommando::new);
-		RenderingRegistry.registerEntityRenderingHandler(DictatorDave.class, RenderDictatorDave::new);
-		RenderingRegistry.registerEntityRenderingHandler(CyberDemon.class, RenderCyberDemon::new);
-		RenderingRegistry.registerEntityRenderingHandler(SkeletonSoldier.class, RenderSkeletonSoldier::new);
-		RenderingRegistry.registerEntityRenderingHandler(PsychoSteve.class, RenderPsychoSteve::new);
-		RenderingRegistry.registerEntityRenderingHandler(StormTrooper.class, RenderStormTrooper::new);
-		RenderingRegistry.registerEntityRenderingHandler(Outcast.class, RenderOutcast::new);
-		RenderingRegistry.registerEntityRenderingHandler(ZombiePigmanSoldier.class, RenderZombiePigmanSoldier::new);
-		RenderingRegistry.registerEntityRenderingHandler(SuperMutantBasic.class, RenderSuperMutant::new);
-		RenderingRegistry.registerEntityRenderingHandler(SuperMutantElite.class, RenderSuperMutant::new);
-		RenderingRegistry.registerEntityRenderingHandler(SuperMutantHeavy.class, RenderSuperMutant::new);
-		RenderingRegistry.registerEntityRenderingHandler(AttackHelicopter.class, RenderAttackHelicopter::new);
-		RenderingRegistry.registerEntityRenderingHandler(AlienBug.class, RenderAlienBug::new);
-		RenderingRegistry.registerEntityRenderingHandler(Ghastling.class, RenderGhastling::new);
-		RenderingRegistry.registerEntityRenderingHandler(ZombiePoliceman.class, RenderZombiePoliceman::new);
 	}
 	
 	

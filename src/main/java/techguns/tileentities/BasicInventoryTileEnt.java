@@ -51,11 +51,7 @@ public class BasicInventoryTileEnt extends BasicTGTileEntity {
 	}
 	
 	protected BasicMachine getMachineBlockType() {
-		if(this.hasRotation) {
-			return TGBlocks.BASIC_MACHINE;
-		} else {
-			return TGBlocks.SIMPLE_MACHINE;
-		}
+		return TGBlocks.BASIC_MACHINE;
 	}
 	
 	/**

@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import techguns.gui.player.TGPlayerInventoryGui;
 
 public class RadResistancePotion extends Potion {
 
@@ -19,7 +18,7 @@ public class RadResistancePotion extends Potion {
 		super.renderInventoryEffect(x, y, effect, mc);
 
 		if(mc.currentScreen!=null) {
-			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+//			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 			mc.currentScreen.drawTexturedModalRect(x+8, y+8, 16, 168, 16, 16);
 			mc.getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);
 		}
@@ -29,7 +28,7 @@ public class RadResistancePotion extends Potion {
 	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
 		super.renderHUDEffect(x, y, effect, mc, alpha);
 		
-		mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+//		mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 		
 		mc.ingameGUI.drawTexturedModalRect(x+4, y+4, 16, 168, 16, 16);
 		mc.getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);

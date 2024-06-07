@@ -1,7 +1,6 @@
 package techguns.capabilities;
 
 import java.util.BitSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -15,15 +14,10 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.server.permission.PermissionAPI;
-import techguns.TGConfig;
-import techguns.TGPermissions;
 import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
-import techguns.client.particle.ITGParticle;
-import techguns.client.particle.TGParticleSystemItemAttached;
-import techguns.gui.player.TGPlayerInventory;
 import techguns.util.DataUtil;
 
 public class TGExtendedPlayer implements ITGExtendedPlayer {
@@ -75,8 +69,6 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	/**
 	 * SAVED FIELDS
 	 */
-	public TGPlayerInventory tg_inventory;
-	
 	public boolean enableJetpack=true;
 	public boolean enableStepAssist=true;
 	public boolean enableNightVision=false;
@@ -99,7 +91,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	
 	public TGExtendedPlayer(EntityPlayer entity) {
 		this.entity = entity;
-		this.tg_inventory = new TGPlayerInventory(entity);
+//		this.tg_inventory = new TGPlayerInventory(entity);
 		entity.getDataManager().register(DATA_FACE_SLOT, ItemStack.EMPTY);
 		entity.getDataManager().register(DATA_BACK_SLOT, ItemStack.EMPTY);
 		entity.getDataManager().register(DATA_HAND_SLOT, ItemStack.EMPTY);
@@ -136,7 +128,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 
 		this.isGliding=other.isGliding;
 		
-		this.tg_inventory = other.tg_inventory;
+//		this.tg_inventory = other.tg_inventory;
 		
 		this.enableJetpack=other.enableJetpack;
 		this.enableStepAssist=other.enableStepAssist;
@@ -226,15 +218,13 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		this.fireDelayOffhand=i;
 	}
 
-	@Override
-	public IInventory getTGInventory() {
-		return this.tg_inventory;
-	}
+//	@Override
+//	public IInventory getTGInventory() {
+//		return this.tg_inventory;
+//	}
 
 	@Override
 	public void saveToNBT(NBTTagCompound tags) {
-		this.tg_inventory.saveNBTData(tags);
-		
 		byte data = DataUtil.compress(this.enableJetpack,this.enableNightVision,this.enableSafemode,this.enableStepAssist,this.showTGHudElements,this.enableHovermode);
 		tags.setByte("states", data);
 		tags.setShort("foodLeft", this.foodleft);
@@ -244,7 +234,6 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 
 	@Override
 	public void loadFromNBT(NBTTagCompound tags) {
-		this.tg_inventory.loadNBTData(tags);
 		BitSet states = DataUtil.uncompress(tags.getByte("states"));
 		
 		this.enableJetpack=states.get(0);
@@ -296,55 +285,55 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	/**
 	 * Drops to world (player death)
 	 */
-	public void dropInventory(EntityPlayer player){
-		if(!player.world.isRemote){
-			if (!player.world.getGameRules().getBoolean("keepInventory"))
-	        {
-	            //this.inventory.dropAllItems();
-	            int i;
-	        
-	            player.captureDrops=true;
-	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
-	            {
-	                if (!this.tg_inventory.inventory.get(i).isEmpty())
-	                {
-	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
-	                    player.dropItem(this.tg_inventory.inventory.get(i), true, false);
-	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
-	                }
-	            }
-	            player.captureDrops=false;
-	         
-	        }
-		}
-	}
-	
-	public void addDropsToList(EntityPlayer player, List<EntityItem> list ){
-		if(!player.world.isRemote){
-			if (!player.world.getGameRules().getBoolean("keepInventory"))
-	        {
-	            //this.inventory.dropAllItems();
-	            int i;
-	        
-	            //player.captureDrops=true;
-	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
-	            {
-	                if (!this.tg_inventory.inventory.get(i).isEmpty())
-	                {
-	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
-	                    EntityItem item = player.dropItem(this.tg_inventory.inventory.get(i), true, false);
-	                    if(item!=null) {
-	                    	list.add(item);
-	                    }
-	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
-	                }
-	            }
-	            //player.captureDrops=false;
-	         
-	        }
-		}
-	}
-	
+//	public void dropInventory(EntityPlayer player){
+//		if(!player.world.isRemote){
+//			if (!player.world.getGameRules().getBoolean("keepInventory"))
+//	        {
+//	            //this.inventory.dropAllItems();
+//	            int i;
+//
+//	            player.captureDrops=true;
+//	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+//	            {
+//	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+//	                {
+//	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
+//	                    player.dropItem(this.tg_inventory.inventory.get(i), true, false);
+//	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+//	                }
+//	            }
+//	            player.captureDrops=false;
+//
+//	        }
+//		}
+//	}
+
+//	public void addDropsToList(EntityPlayer player, List<EntityItem> list ){
+//		if(!player.world.isRemote){
+//			if (!player.world.getGameRules().getBoolean("keepInventory"))
+//	        {
+//	            //this.inventory.dropAllItems();
+//	            int i;
+//
+//	            //player.captureDrops=true;
+//	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+//	            {
+//	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+//	                {
+//	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
+//	                    EntityItem item = player.dropItem(this.tg_inventory.inventory.get(i), true, false);
+//	                    if(item!=null) {
+//	                    	list.add(item);
+//	                    }
+//	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+//	                }
+//	            }
+//	            //player.captureDrops=false;
+//
+//	        }
+//		}
+//	}
+
 	public boolean isChargingWeapon() {
 		return this.entity.getDataManager().get(DATA_FLAG_CHARGING_WEAPON);
 	}

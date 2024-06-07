@@ -15,11 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
-import techguns.plugins.chisel.TGChiselBlocks;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
-import techguns.world.OreGenerator;
-import techguns.world.WorldGenTGStructureSpawn;
-import techguns.world.dungeon.DungeonTemplate;
 
 @Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY, updateJSON=Techguns.UPDATEURL, dependencies=Techguns.DEPENDENCIES)
 public class Techguns
@@ -120,14 +116,6 @@ public class Techguns
     	if(Loader.isModLoaded("crafttweaker")){
     		TGCraftTweakerIntegration.init();
     	}
-    	
-    	if(TGConfig.doOreGenTitanium||TGConfig.doOreGenUranium||TGConfig.doOreGenLead||TGConfig.doOreGenTin||TGConfig.doOreGenCopper) {
-    		GameRegistry.registerWorldGenerator(new OreGenerator(), 1);
-    	}
-    	
-    	 if(TGConfig.doWorldspawn){
-         	GameRegistry.registerWorldGenerator(new WorldGenTGStructureSpawn(), 6);
-         }
     }
     
     @EventHandler
@@ -137,12 +125,5 @@ public class Techguns
     		init.postInit(event);
     	}
     	proxy.postInit(event);
-    	
-    	if(this.CHISEL_ENABLED) {
-    		TGChiselBlocks.postInit();
-    	}
-    	DungeonTemplate.init();
     }
-    
-    
 }

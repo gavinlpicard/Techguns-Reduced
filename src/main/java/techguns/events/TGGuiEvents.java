@@ -22,7 +22,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.TGItems;
 import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.guns.GunHandType;
@@ -30,16 +29,8 @@ import techguns.api.guns.GunManager;
 import techguns.api.radiation.TGRadiation;
 import techguns.api.render.IItemRenderer;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.client.ClientProxy;
-import techguns.client.render.GLStateSnapshot;
 import techguns.client.render.ItemRenderHack;
 import techguns.client.render.item.RenderGunBase;
-import techguns.debug.Keybinds;
-import techguns.entities.projectiles.EnumBulletFirePos;
-import techguns.gui.player.TGGuiTabButton;
-import techguns.gui.player.TGPlayerInventory;
-import techguns.gui.player.TGPlayerInventoryGui;
-import techguns.items.additionalslots.ItemTGSpecialSlotAmmo;
 import techguns.items.armors.PoweredArmor;
 import techguns.items.guns.EnumCrosshairStyle;
 import techguns.items.guns.GenericGun;
@@ -92,7 +83,7 @@ public class TGGuiEvents extends Gui{
 		
 		if(props!=null && props.showTGHudElements && showSafemode){
 
-			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+//			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 			this.drawTexturedModalRect(sr.getScaledWidth()-10, offsetY, 242+7*(props.enableSafemode?1:0), 14, 7,7);
 
 		}
@@ -100,8 +91,8 @@ public class TGGuiEvents extends Gui{
 		if(props!=null && props.showTGHudElements){
 			offsetY -=10;
 		
-			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
-		
+//			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+
 			//draw power icon
 			ItemStack chest =ply.inventory.armorInventory.get(2);
 			if(chest!=null && chest.getItem() instanceof PoweredArmor){
@@ -112,7 +103,7 @@ public class TGGuiEvents extends Gui{
 				
 				ItemStack ammoitem  = pwrchest.getBattery();
 				int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-				count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+//				count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
 				
 				String text = ChatFormatting.YELLOW+""+count+"x"+ChatFormatting.WHITE+(int)(percent*100)+"%";
 				mc.fontRenderer.drawString(text, sr.getScaledWidth()-2-text.length()*6-8+24, offsetY, 0xFFFFFFFF);
@@ -121,39 +112,39 @@ public class TGGuiEvents extends Gui{
 				
 			}
 			
-			ItemStack backslot = props.tg_inventory.inventory.get(props.tg_inventory.SLOT_BACK);
-			if (backslot !=null){
-				
-				//TODO: unhardcode this
-				if (backslot.getItem() == TGItems.JETPACK || backslot.getItem() == TGItems.JUMPPACK || backslot.getItem() == TGItems.ANTI_GRAV_PACK){
+//			ItemStack backslot = props.tg_inventory.inventory.get(props.tg_inventory.SLOT_BACK);
+//			if (backslot !=null){
+//
+//				TODO: unhardcode this
+//				if (backslot.getItem() == TGItems.JETPACK || backslot.getItem() == TGItems.JUMPPACK || backslot.getItem() == TGItems.ANTI_GRAV_PACK){
+//
+//					int x = 242;
+//					if (props.enableJetpack){
+//						x+=7;
+//					}
+//					//bind again because string drawing fucks it up
+//					mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+//					this.drawTexturedModalRect(sr.getScaledWidth()-10, offsetY, x, 42, 7,7);
+//
+//					double percent = 1.0D-(backslot.getItemDamage()*1.0f) / (backslot.getMaxDamage()*1.0f);
+//
+//					ItemStack ammoitem  = ((ItemTGSpecialSlotAmmo)backslot.getItem()).getAmmo();
+//					int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
+//					count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+//
+//					String text = ChatFormatting.YELLOW+""+count+"x"+ChatFormatting.WHITE+(int)(percent*100)+"%";
+//
+//					//String text= ""+(int)(percent*100)+"%";
+//					mc.fontRenderer.drawString(text, sr.getScaledWidth()-2-text.length()*6-8+24, offsetY, 0xFFFFFFFF);
+//
+//					offsetY-=10;
+//
+//				}
+//
+//			}
 
-					int x = 242;
-					if (props.enableJetpack){
-						x+=7;
-					}
-					//bind again because string drawing fucks it up
-					mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
-					this.drawTexturedModalRect(sr.getScaledWidth()-10, offsetY, x, 42, 7,7);
-			
-					double percent = 1.0D-(backslot.getItemDamage()*1.0f) / (backslot.getMaxDamage()*1.0f);
-					
-					ItemStack ammoitem  = ((ItemTGSpecialSlotAmmo)backslot.getItem()).getAmmo();
-					int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-					count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
-					
-					String text = ChatFormatting.YELLOW+""+count+"x"+ChatFormatting.WHITE+(int)(percent*100)+"%";
-				
-					//String text= ""+(int)(percent*100)+"%";
-					mc.fontRenderer.drawString(text, sr.getScaledWidth()-2-text.length()*6-8+24, offsetY, 0xFFFFFFFF);
-					
-					offsetY-=10;
-					
-				}
-				
-			}
-			
-			//needs rebind after string drawing
-			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+
+//			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 			if(Techguns.proxy.getHasNightvision()){
 				this.drawTexturedModalRect(sr.getScaledWidth()-10, offsetY, 242+7*(props.enableNightVision?1:0), 7, 7,7);
 				offsetY-=10;
@@ -222,7 +213,7 @@ public class TGGuiEvents extends Gui{
 	
 	private int getAmmoCountOfStack(ItemStack ammoitem, GenericGun gun, EntityPlayer ply, TGExtendedPlayer props) {
 		int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-		count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+//		count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
 		
 		if (gun.getAmmoCount()>1){
 			count = count / gun.getAmmoCount();

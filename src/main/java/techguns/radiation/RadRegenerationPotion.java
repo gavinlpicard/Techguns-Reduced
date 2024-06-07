@@ -1,7 +1,5 @@
 package techguns.radiation;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.EntityLiving;
@@ -11,12 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundCategory;
-import techguns.TGSounds;
-import techguns.api.radiation.TGRadiation;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.damagesystem.TGDamageSource;
-import techguns.deatheffects.EntityDeathUtils.DeathType;
-import techguns.gui.player.TGPlayerInventoryGui;
 
 public class RadRegenerationPotion extends Potion {
 
@@ -29,7 +22,7 @@ public class RadRegenerationPotion extends Potion {
 		super.renderInventoryEffect(x, y, effect, mc);
 
 		if(mc.currentScreen!=null) {
-			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+//			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 			mc.currentScreen.drawTexturedModalRect(x+8, y+8, 32, 168, 16, 16);
 			mc.getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);
 		}
@@ -39,7 +32,7 @@ public class RadRegenerationPotion extends Potion {
 	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
 		super.renderHUDEffect(x, y, effect, mc, alpha);
 		
-		mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+//		mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 		
 		mc.ingameGUI.drawTexturedModalRect(x+4, y+4, 32, 168, 16, 16);
 		mc.getTextureManager().bindTexture(GuiContainer.INVENTORY_BACKGROUND);

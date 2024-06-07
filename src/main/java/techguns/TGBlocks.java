@@ -33,7 +33,6 @@ import techguns.blocks.BlockTGOre;
 import techguns.blocks.BlockTGSandHard;
 import techguns.blocks.BlockTGSlimy;
 import techguns.blocks.BlockTGSlimyLadder;
-import techguns.blocks.BlockTGSpawner;
 import techguns.blocks.BlockTGStairs;
 import techguns.blocks.EnumCamoNetType;
 import techguns.blocks.EnumConcreteType;
@@ -58,13 +57,10 @@ import techguns.blocks.machines.BlockOreDrill;
 import techguns.blocks.machines.EnumExplosiveChargeType;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
-import techguns.blocks.machines.EnumOreDrillType;
-import techguns.blocks.machines.EnumSimpleMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType2;
 import techguns.blocks.machines.MultiBlockMachine;
 import techguns.blocks.machines.SimpleMachine;
 import techguns.init.ITGInitializer;
-import techguns.plugins.chisel.ChiselIMCHelper;
 import techguns.tools.BlockJsonCreator;
 
 public class TGBlocks implements ITGInitializer{
@@ -72,8 +68,6 @@ public class TGBlocks implements ITGInitializer{
 	
 	//Machines
 	public static BasicMachine<EnumMachineType> BASIC_MACHINE;
-	
-	public static SimpleMachine<EnumSimpleMachineType> SIMPLE_MACHINE;
 	
 	public static SimpleMachine<EnumSimpleMachineType2> SIMPLE_MACHINE2;
 	
@@ -104,8 +98,6 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGStairs METAL_STAIRS;
 	public static BlockTGStairs CONCRETE_STAIRS;
-	
-	public static BlockTGSpawner MONSTER_SPAWNER;
 	
 	public static GenericBlockMetaEnumCamoChangeable<EnumLightblockType> NEONLIGHT_BLOCK;
 	
@@ -148,7 +140,6 @@ public class TGBlocks implements ITGInitializer{
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		BASIC_MACHINE= new BasicMachine<EnumMachineType>("basicmachine",EnumMachineType.class);
-		SIMPLE_MACHINE = new SimpleMachine<EnumSimpleMachineType>("simplemachine",EnumSimpleMachineType.class);
 		SIMPLE_MACHINE2 = new SimpleMachine<EnumSimpleMachineType2>("simplemachine2",EnumSimpleMachineType2.class);
 		MULTIBLOCK_MACHINE = new MultiBlockMachine<EnumMultiBlockMachineType>("multiblockmachine", EnumMultiBlockMachineType.class);
 		TG_ORE = new BlockTGOre("basicore");
@@ -167,8 +158,6 @@ public class TGBlocks implements ITGInitializer{
 		
 		METAL_STAIRS = (BlockTGStairs) new BlockTGStairs("stairs_metal", Material.IRON, SoundType.METAL).setHardness(8.0f);
 		CONCRETE_STAIRS = (BlockTGStairs) new BlockTGStairs("stairs_concrete", Material.ROCK, SoundType.STONE).setHardness(6.0f);
-		
-		MONSTER_SPAWNER = new BlockTGSpawner("tg_spawner");
 		
 		NEONLIGHT_BLOCK = (GenericBlockMetaEnumCamoChangeable<EnumLightblockType>) new GenericBlockMetaEnumCamoChangeable<EnumLightblockType>("neonlights", Material.GLASS, MapColor.YELLOW, SoundType.GLASS, EnumLightblockType.class).setLightLevel(1f).setHardness(4.0f);
 		
@@ -204,15 +193,7 @@ public class TGBlocks implements ITGInitializer{
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		ChiselIMCHelper.addChiselVariants("techguns:camonet", TGBlocks.CAMONET, EnumCamoNetType.class);
-		ChiselIMCHelper.addChiselVariants("techguns:camonettop", TGBlocks.CAMONET_TOP, EnumCamoNetType.class);
-		ChiselIMCHelper.addChiselVariants("techguns:metalpanel", TGBlocks.METAL_PANEL, TGMetalPanelType.class);
-		ChiselIMCHelper.addChiselVariants("techguns:neonlights", TGBlocks.NEONLIGHT_BLOCK, EnumLightblockType.class);
-		ChiselIMCHelper.addChiselVariants("reinforced_concrete", TGBlocks.CONCRETE, EnumConcreteType.class);
-		
-		for(EnumLadderType t: EnumLadderType.values()) {
-			ChiselIMCHelper.addChiselVariation("techguns:metalladder", TGBlocks.LADDER_0.getRegistryName(), TGBlocks.LADDER_0.getMetaFromState(TGBlocks.LADDER_0.getDefaultState().withProperty(TGBlocks.LADDER_0.TYPE, t)));
-		}
+
 	}
 
 	@Override

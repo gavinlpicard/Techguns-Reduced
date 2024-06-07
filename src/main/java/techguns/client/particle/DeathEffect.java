@@ -74,28 +74,8 @@ import techguns.client.models.gibs.ModelGibsIllager;
 import techguns.client.models.gibs.ModelGibsQuadruped;
 import techguns.client.models.gibs.ModelGibsSlime;
 import techguns.client.models.gibs.ModelGibsVillager;
-import techguns.client.models.npcs.ModelAlienBug;
-import techguns.client.models.npcs.ModelCyberDemon;
-import techguns.client.models.npcs.ModelSuperMutant;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
-import techguns.entities.npcs.AlienBug;
-import techguns.entities.npcs.ArmySoldier;
-import techguns.entities.npcs.Bandit;
-import techguns.entities.npcs.Commando;
-import techguns.entities.npcs.CyberDemon;
-import techguns.entities.npcs.DictatorDave;
-import techguns.entities.npcs.Ghastling;
-import techguns.entities.npcs.PsychoSteve;
-import techguns.entities.npcs.SkeletonSoldier;
-import techguns.entities.npcs.StormTrooper;
-import techguns.entities.npcs.SuperMutantBasic;
-import techguns.entities.npcs.SuperMutantElite;
-import techguns.entities.npcs.SuperMutantHeavy;
-import techguns.entities.npcs.ZombieFarmer;
-import techguns.entities.npcs.ZombieMiner;
-import techguns.entities.npcs.ZombiePigmanSoldier;
-import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.FlyingGibs;
 
 public class DeathEffect {
@@ -108,8 +88,6 @@ public class DeathEffect {
 		ModelGibs modelBipedPlayer = new ModelGibsBiped(new ModelBiped(0.0f, 0.0f, 64, 32));
 		goreStats.put(EntityPlayer.class, (new GoreData(modelBipedPlayer, 160,21,31)));
 		goreStats.put(EntityZombie.class, (new GoreData(modelBiped, 110,21,41)));
-		goreStats.put(ZombieSoldier.class, (new GoreData(modelBiped, 110,21,41)));
-		goreStats.put(ArmySoldier.class, (new GoreData(modelBiped, 160,21,31)));
 		goreStats.put(EntitySkeleton.class, (new GoreData(new ModelGibsBiped(new ModelSkeleton()), 255,255,255)));
 		goreStats.put(EntityVillager.class, (new GoreData(new ModelGibsVillager(new ModelVillager(0.0f)), 150,21,51)));
 		goreStats.put(EntityCow.class, (new GoreData(new ModelGibsQuadruped(new ModelCow()), 170,26,37)));
@@ -122,29 +100,8 @@ public class DeathEffect {
 		goreStats.put(EntityCaveSpider.class, (new GoreData(new ModelGibsGeneric(new ModelSpider()), 85,156,17)).setFXscale(0.7f));		
 //		
 		goreStats.put(EntityPigZombie.class, (new GoreData(modelBiped, 110,51,11)));	
-		goreStats.put(ZombiePigmanSoldier.class, (new GoreData(modelBiped, 110,51,11)));	
-		goreStats.put(CyberDemon.class, (new GoreData(new ModelGibsBiped(new ModelCyberDemon()), 85,156,17)));	
-		
-		goreStats.put(SuperMutantBasic.class, (new GoreData(new ModelGibsBiped(new ModelSuperMutant()), 109,60,25)).setFXscale(1.2f));
-		goreStats.put(SuperMutantElite.class, (new GoreData(new ModelGibsBiped(new ModelSuperMutant()), 109,60,25)).setFXscale(1.2f));
-		goreStats.put(SuperMutantHeavy.class, (new GoreData(new ModelGibsBiped(new ModelSuperMutant()), 109,60,25)).setFXscale(1.2f));
-		
-		goreStats.put(StormTrooper.class, (new GoreData(modelBiped, 160,21,31)));
-		goreStats.put(Commando.class, (new GoreData(modelBiped, 160,21,31)));
-		goreStats.put(DictatorDave.class, (new GoreData(modelBiped, 160,21,31)));
-		goreStats.put(PsychoSteve.class, (new GoreData(modelBiped, 160,21,31)));
-		
-		goreStats.put(EntityWitch.class, (new GoreData(new ModelGibsVillager(new ModelWitch(1.0f)), 160,21,31)));			
+		goreStats.put(EntityWitch.class, (new GoreData(new ModelGibsVillager(new ModelWitch(1.0f)), 160,21,31)));
 		goreStats.put(EntitySlime.class, (new GoreData(new ModelGibsSlime(),40,255,40)));
-//		
-		goreStats.put(ZombieFarmer.class, (new GoreData(modelBiped, 110,21,41)));
-		goreStats.put(ZombieMiner.class, (new GoreData(modelBiped, 110,21,41)));
-//		
-		goreStats.put(Bandit.class, new GoreData(modelBiped, 160,21,31));
-		goreStats.put(SkeletonSoldier.class, (new GoreData(new ModelGibsBiped(new ModelSkeleton()), 255,255,255)));
-		goreStats.put(AlienBug.class, (new GoreData(new ModelGibsGeneric(new ModelAlienBug()), 235, 255, 70)));
-		goreStats.put(Ghastling.class, (new GoreData(new ModelGibsSlime(), 255,255,255)).setFXscale(1.0f));
-		
 		goreStats.put(EntityLlama.class, (new GoreData(new ModelGibsQuadruped(new ModelLlama(0f)), 170,26,37)));
 		goreStats.put(EntityEvoker.class, (new GoreData(new ModelGibsIllager(new ModelIllager(0.0F, 0.0F, 64, 64)), 110,21,41)));
 		goreStats.put(EntityHusk.class, (new GoreData(modelBiped, 110,21,41)));

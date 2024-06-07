@@ -1,9 +1,7 @@
 package techguns.deatheffects;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCaveSpider;
@@ -42,24 +40,6 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-import techguns.entities.npcs.AlienBug;
-import techguns.entities.npcs.ArmySoldier;
-import techguns.entities.npcs.Bandit;
-import techguns.entities.npcs.Commando;
-import techguns.entities.npcs.CyberDemon;
-import techguns.entities.npcs.DictatorDave;
-import techguns.entities.npcs.Ghastling;
-import techguns.entities.npcs.Outcast;
-import techguns.entities.npcs.PsychoSteve;
-import techguns.entities.npcs.SkeletonSoldier;
-import techguns.entities.npcs.StormTrooper;
-import techguns.entities.npcs.SuperMutantBasic;
-import techguns.entities.npcs.SuperMutantElite;
-import techguns.entities.npcs.SuperMutantHeavy;
-import techguns.entities.npcs.ZombieFarmer;
-import techguns.entities.npcs.ZombieMiner;
-import techguns.entities.npcs.ZombiePigmanSoldier;
-import techguns.entities.npcs.ZombieSoldier;
 
 /**
  * Server and client side, needed by server to know to send out packets
@@ -84,36 +64,16 @@ public class EntityDeathUtils {
 		goreMap.add(EntityPig.class);
 		goreMap.add(EntityChicken.class);
 		goreMap.add(EntityPigZombie.class);
-		goreMap.add(ZombieSoldier.class);
-		goreMap.add(ArmySoldier.class);
-		goreMap.add(CyberDemon.class);
-		goreMap.add(ZombiePigmanSoldier.class);
 		goreMap.add(EntitySpider.class);
 		goreMap.add(EntityCaveSpider.class);
 		goreMap.add(EntityWitch.class);
 		goreMap.add(EntitySlime.class);
-		goreMap.add(ZombieFarmer.class);
-		goreMap.add(ZombieMiner.class);
-		goreMap.add(Bandit.class);
-		goreMap.add(ZombieSoldier.class);
 		goreMap.add(EntityHorse.class);
 		goreMap.add(EntityMooshroom.class);
 		goreMap.add(EntityWolf.class);
 		goreMap.add(EntitySquid.class);
 		//goreMap.add(EntityGhast.class);
 		goreMap.add(EntityVillager.class);
-		goreMap.add(PsychoSteve.class);
-		goreMap.add(DictatorDave.class);
-		goreMap.add(SkeletonSoldier.class);
-		goreMap.add(AlienBug.class);
-		goreMap.add(StormTrooper.class);
-		goreMap.add(SuperMutantElite.class);
-		goreMap.add(SuperMutantHeavy.class);
-		goreMap.add(SuperMutantBasic.class);
-		goreMap.add(Outcast.class);
-		goreMap.add(Commando.class);
-		goreMap.add(Ghastling.class);
-		
 		goreMap.add(EntityLlama.class);
 		goreMap.add(EntityEvoker.class);
 		goreMap.add(EntityHusk.class);

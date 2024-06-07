@@ -15,14 +15,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import techguns.api.radiation.TGRadiation;
 import techguns.blocks.EnumOreType;
 import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
 import techguns.tileentities.operation.UpgradeBenchRecipes;
-import techguns.tileentities.operation.UpgradeBenchRecipes.UpgradeBenchRecipe;
-import techguns.tileentities.operation.BlastFurnaceRecipes;
-import techguns.tileentities.operation.BlastFurnaceRecipes.BlastFurnaceRecipe;
 import techguns.tileentities.operation.CamoBenchRecipes;
 import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
 import techguns.tileentities.operation.ChargingStationRecipe;
@@ -186,19 +182,7 @@ public class TGMachineRecipes {
 		
 		FabricatorRecipe.addRecipe(new ItemStackOreDict("ingotSteel", 2), 1, FabricatorRecipe.circuit_basic, 1, FabricatorRecipe.redstone, 4, FabricatorRecipe.leadPlate, 2, TGItems.NUCLEAR_POWERCELL_EMPTY, 1);		
 		
-		/**
-		 * Camo Bench
-		 */
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.WOOL));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.CONCRETE));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.CONCRETE_POWDER));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.STAINED_HARDENED_CLAY));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.STAINED_GLASS));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.STAINED_GLASS_PANE));
-		//CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.BED));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.STANDING_BANNER));
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.CARPET));
-		
+
 		TGBlocks.BLOCKLIST.forEach(b -> {
 			if (b instanceof ICamoChangeable) {
 				if (((ICamoChangeable)b).addBlockCamoChangeRecipes() ) {
@@ -206,23 +190,7 @@ public class TGMachineRecipes {
 				}
 			}
 		});
-		CamoBenchRecipes.addRecipe(new CamoBenchRecipes.TGLampCamoBenchRecipe(TGBlocks.LAMP_0,0));
-	
-		/**
-		 * Blast Furnace
-		 */
-		BlastFurnaceRecipes.addRecipe(new ItemStack(Items.IRON_INGOT,4), new ItemStack(Items.COAL,1), TGItems.newStack(TGItems.INGOT_STEEL, 4), 10, 800);
-		BlastFurnaceRecipes.addRecipe(new ItemStack(Items.IRON_INGOT,4), new ItemStack(Items.COAL,1,1), TGItems.newStack(TGItems.INGOT_STEEL, 4), 10, 800);
-		BlastFurnaceRecipes.addRecipe("ingotSteel",1, new ItemStack(Blocks.OBSIDIAN,1), TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 1), 10, 200);
-		BlastFurnaceRecipes.addRecipe("ingotCopper", 3,"ingotTin",1,TGItems.newStack(TGItems.INGOT_BRONZE, 4), 10, 100);
-		
-		/**
-		 * CHARGING STATION
-		 */
-		ChargingStationRecipe.addRecipe(new ItemStackOreDict(TGItems.ENERGY_CELL_EMPTY), TGItems.ENERGY_CELL, 50000);
-		ChargingStationRecipe.addRecipe(new ItemStackOreDict(TGItems.REDSTONE_BATTERY_EMPTY), TGItems.REDSTONE_BATTERY, 20000);
-		
-		
+
 		/**
 		 * REACTION CHAMBER
 		 */

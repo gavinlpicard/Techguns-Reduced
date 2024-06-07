@@ -16,7 +16,6 @@ public class Door3x3Gui extends RedstoneTileEntGui {
 	public Door3x3Gui(InventoryPlayer player, Door3x3TileEntity tile) {
 		super(new Door3x3Container(player, tile), tile);
 		this.tile=tile;
-		this.tex=DungeonGeneratorGui.texture;
 		this.showInventoryText=false;
 	}
 	

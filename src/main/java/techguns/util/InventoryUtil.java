@@ -11,7 +11,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGItems;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.gui.player.TGPlayerInventory;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 
 public class InventoryUtil {
@@ -19,25 +18,25 @@ public class InventoryUtil {
 	public static int addAmmoToPlayerInventory(EntityPlayer ply, ItemStack ammo){
     	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
     	
-    	if (props!=null){
-    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
-    		if (amount>0){
-    			return addItemToInventory(ply.inventory.mainInventory, ammo, 0, ply.inventory.mainInventory.size());
-    		} else {
-    			return 0;
-    		}
-    	} else {
+//    	if (props!=null){
+//    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
+//    		if (amount>0){
+//    			return addItemToInventory(ply.inventory.mainInventory, ammo, 0, ply.inventory.mainInventory.size());
+//    		} else {
+//    			return 0;
+//    		}
+//    	} else {
     		return addItemToInventory(ply.inventory.mainInventory, ammo, 0, ply.inventory.mainInventory.size());
-    	}
+//    	}
     }
 	
 	public static int addAmmoToAmmoInventory(EntityPlayer ply, ItemStack ammo){
     	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
     	
-    	if (props!=null){
-    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
-    		return amount;
-    	}
+//    	if (props!=null){
+//    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
+//    		return amount;
+//    	}
     	return ammo.getCount();
     }
 	
@@ -168,27 +167,27 @@ public class InventoryUtil {
     	if ( props!=null ){
         	int amount = ammo.getCount();
         	if (amount ==1){     
-	        	if (consumeAmmo(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)){
-	        		return true;
-	        	} else {
+//	        	if (consumeAmmo(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)){
+//	        		return true;
+//	        	} else {
 	        		return consumeAmmo(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
-	        	}
+//	        	}
         	} else {
         		
         		//Check first if amount can be consumed
-        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+//        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
         		//System.out.println("needed1:"+needed);
         		int needed2 = canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
         		//System.out.println("needed2:"+needed);
-        		if ( needed+needed2 <= amount){
-        			
-        			int missing = consumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
-        			
-        			if (missing >0){
-        				return consumeItem(ply.inventory.mainInventory,TGItems.newStack(ammo, missing),0,ply.inventory.mainInventory.size()) <= 0;
-        			} else {
+        		if (needed2 <= amount) {
+//
+//        			int missing = consumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+//
+//        			if (missing >0){
+//        				return consumeItem(ply.inventory.mainInventory,TGItems.newStack(ammo, missing),0,ply.inventory.mainInventory.size()) <= 0;
+//        			} else {
         				return true;
-        			}
+//        			}
         			
         			
         		} else {
@@ -208,18 +207,18 @@ public class InventoryUtil {
     	if ( props!=null ){
         	int amount = ammo.getCount();
         	if (amount ==1){     
-	        	if (canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)<=0){
-	        		return true;
-	        	} else {
+//	        	if (canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)<=0){
+//	        		return true;
+//	        	} else {
 	        		return canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size())<=0;
-	        	}
+//	        	}
         	} else {
         		
         		//Check first if amount can be consumed
-        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+//        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
         		int needed2 = canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
 
-        		if ( needed+needed2 <= amount){
+        		if (needed2 <= amount){
         			
         			return true;
         			

@@ -15,7 +15,7 @@ public interface ITGExtendedPlayer extends ITGShooterValues {
 	
 	public int getFireDelay(EnumHand hand);
 	public void setFireDelay(EnumHand hand, int delay);
-	public IInventory getTGInventory();
+//	public IInventory getTGInventory();
 	
 	public void saveToNBT(final NBTTagCompound tags);
 	public void loadFromNBT(final NBTTagCompound tags);

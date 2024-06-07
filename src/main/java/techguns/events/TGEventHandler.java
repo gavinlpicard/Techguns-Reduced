@@ -93,9 +93,6 @@ import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
-import techguns.client.audio.TGSound;
-import techguns.client.render.GLStateSnapshot;
-import techguns.client.render.entities.npcs.RenderAttackHelicopter;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
 import techguns.client.render.entities.projectiles.RenderGrenade40mmProjectile;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
@@ -105,7 +102,6 @@ import techguns.deatheffects.EntityDeathUtils;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.entities.npcs.TGDummySpawn;
 import techguns.entities.spawn.TGSpawnManager;
-import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.widgets.SlotFabricator;
 import techguns.gui.widgets.SlotTG;
 import techguns.items.armors.GenericArmor;
@@ -497,9 +493,9 @@ public class TGEventHandler {
 					//TGPackets.network.sendToDimension(new PacketTGExtendedPlayerSync(props, false), event.entity.dimension);
 					TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(ply,props, true), (EntityPlayerMP) ply);
 					
-					ply.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
-					ply.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
-					ply.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
+//					ply.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
+//					ply.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
+//					ply.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
 					//ply.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_FACESLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_FACE]);
 					//ply.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_BACKSLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_BACK]);
 				
@@ -560,7 +556,6 @@ public class TGEventHandler {
 	@SubscribeEvent
 	public static void onModelBake(ModelBakeEvent event) {
 		RenderGrenade40mmProjectile.initModel();
-		RenderAttackHelicopter.initModels();
 		RenderDoor3x3Fast.initModels();
 	}
 	
@@ -696,11 +691,11 @@ public class TGEventHandler {
 		EntityPlayer ply = event.getEntityPlayer();
 		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 		
-		if(props!=null){
-
-			props.dropInventory(ply);
-
-		}	
+//		if(props!=null){
+//
+//			props.dropInventory(ply);
+//
+//		}
 		
 	}
 	
